@@ -1,0 +1,37 @@
+import express from 'express'
+import * as productService from './services/product'
+import bodyParser from 'body-parser'
+import queryParser from 'express-query-parser'
+const app = express()
+
+app.use(bodyParser.json())
+app.use(queryParser())
+
+app.get('/produtos', (req, res) => {
+    const produtos = productService.getAllProducts()
+    res.send(produtos)
+})
+
+app.get('/produtos/:id', (req, res) => {
+    const { id } = req.params
+    const produto = productService.getProductById(id)
+    console.log('produto', produto)
+    res.send(produto)
+})
+
+
+app.post('/produtos', (req, res) => {
+    const {produto} = req.body
+    productService.saveNewProduct(produto)
+    res.send(produto)
+})
+
+app.put('/produtos', (req, res) => {
+    const { produto } = req.body
+    productService.updateProduct(produto)
+    res.send('PUT recebido em /user')
+})
+
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000...')
+})
