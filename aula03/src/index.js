@@ -5,6 +5,7 @@ const router = express.Router()
 import * as repoTest from './repositories/test'
 import * as repoMovies from './repositories/movies'
 import * as repoSeries from './repositories/series'
+import * as tasks from './tasks'
 
 app.get('/status', async (req, res) => {
     const result = await repoTest.findAll()
@@ -15,6 +16,12 @@ app.get('/movies', async (req, res) => {
     const result = await repoMovies.findAll()
     res.json(result)
 })
+
+app.post('/movies', async (req, res) => {
+    const result = await tasks.loadMovies()
+    res.json(result)
+})
+
 
 app.get('/series', async (req, res) => {
     const result = await repoSeries.findAll()
