@@ -21,7 +21,7 @@ app.get('/status', async (req, res) => {
 })
 
 
-app.use('/api', routes(router))
+app.use('/api', initializeRoutes(router))
 
 app.listen({ port: PORT }, async () => {
   await connect()
